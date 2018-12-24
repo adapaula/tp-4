@@ -13,7 +13,7 @@ function buildTableUsers(users) {
             <td>${users[i].apellido}</td>
             <td>${users[i].telefono}</td>
             <td>${users[i].email}</td>
-            <td><button class="btn edit">Editar</button></td>
+            <td><button class="btn edit">Editar</i></button></td>
             <td><button class="btn delete" id="borrar">Borrar</button></td>
         </tr>
     `);
@@ -39,7 +39,7 @@ $(document).on("click", ".btn.delete", function() {
 $(document).on("click", ".btn.delete", function() {
   const self = $(this);
   const id = self.parent().parent().data("id");
- //$(this)  se puede llamar that o $self
+ //$(this) se puede llamar that o $self
   $(this).parent().parent().remove();
   $.ajax(`/api/users/${id}`, {
     method: "delete" 

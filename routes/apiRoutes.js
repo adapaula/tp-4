@@ -27,10 +27,6 @@ const users = [
   
 let contador = 4;
 
-router.get('/users', function (req, res) {
-      res.json(users);
-});
-
 //validaciones
 const validarNumero = /^\d+$/;
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@“]+(\.[^<>()\[\]\\.,;:\s@“]+)*)|(“.+“))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -38,7 +34,7 @@ const emailRegex = /^(([^<>()\[\]\\.,;:\s@“]+(\.[^<>()\[\]\\.,;:\s@“]+)*)|(�
     //search
 router.get("/users", (req, res)=> {
     // para acceder a los query params usamos rec.query
-    const search = req.query.search;
+    let search = req.query.search;
     //chequeo que search este definido y su longitud sea mayor a cero
     if (search && search.length > 0) {
     let usersFiltrados = [];
@@ -53,18 +49,17 @@ router.get("/users", (req, res)=> {
         }
     }
     return res.json(usersFiltrados);
-       //si no ponemos return sale cant' ...
     }
     res.json(users);    
  }) 
 
  router.delete("/users/:id", (req, res) => {
     // guardamos el id que nos llega por parametro   
-    const id = req.params.id;
+    const userId = parseInt(req.params.id);
     // buscar en que ubicacion esta el usuario
-     const idx = users.findIndex(u => u.id == id);
+     const userIndex = users.findIndex(u => u.id == userId);
     // borro el usuario de array
-    users.splice(idx, 1);
+    users.splice(userIndex, 1);
     // mandar una respuesta
     res.json(users);
 });
@@ -75,24 +70,9 @@ router.get("/users/:id", (req, res) => {
     // 1) findIndex
     // const userIndex = users.findIndex(user => user.id === userId)
     // 2) Devuelvo la posicion del array
-    // res.json(users[userIndex])
-    // 2) find (!!)
     const user =  users.find(user => user.id === userId)
-    res.json(user)
+    res.json(user);
 })
-
-/*router.get("/users/:id", (req, res) => {
-    // guardamos el id que nos llega por parametro   
-    const id = req.params.id;
-    // buscar en que ubicacion esta el usuario
-    const user =  users.find(user => user.id == userId)
-    res.json(user)
-});*/
-
-  // endpoint edit en una sola linea
-  // router.get("/users/:id", (req, res) => {
-  // res.json(users.find(u => u.id === parseInt(req.params.id)));
-  // });
 
 router.post('/users', function (req, res) {
   // la info que me llega desde la web

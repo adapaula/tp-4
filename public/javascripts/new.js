@@ -22,8 +22,6 @@ $("form button").click(function(){
         email: email
     };
 
-    $.ajax("http://localhost:3003/users/new", {
-    })
     $.ajax("http://localhost:3003/api/users", {
         method: "POST",
         data: elNuevoUsuario

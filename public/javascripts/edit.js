@@ -33,25 +33,14 @@ apellido: $apellido.val(),
 telefono: $telefono.val(),
 email: $email.val()
 }
-/*
- $.ajax(`/api/users/${id}`, {
-  method: "PUT",
-  data: editedUser
-  })*/
+
 $.ajax(`http://localhost:3003/api/users/${id}`, {
   method: "PUT",
   data: editedUser,
-  //})
-    /*
-  .done(function(){
-  alert("usuario editado")
-  location.href="/users"
-  .fail(function(){
-  alert("usuario no editado")
-  })
-  })*/
+
   success: function() {
     alert("Cambios guardados")
+    location.href = `/users`;
    }
 })
 })
